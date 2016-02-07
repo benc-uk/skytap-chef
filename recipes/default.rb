@@ -7,7 +7,9 @@
 # All rights reserved - Do Not Redistribute
 #
 
-# Test calling Skytap REST API from Chef
+#
+# Example recipe showing how to use the Skytap resources to create & manage environments 
+#
 
 skytap_environment 'Ubuntu Environment from Chef' do
   action :create
