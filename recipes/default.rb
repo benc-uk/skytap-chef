@@ -9,10 +9,10 @@
 
 # Test calling Skytap REST API from Chef
 
-skytap_environment 'Environment from Chef' do
+skytap_environment 'Ubuntu Environment from Chef' do
   action :create
   template_id '493169'
-  start false
+  start true
 end
 
 #skytap_environment '6949500' do
