@@ -1,7 +1,7 @@
 name             'skytap'
-maintainer       'YOUR_COMPANY_NAME'
-maintainer_email 'YOUR_EMAIL'
-license          'All rights reserved'
-description      'Installs/Configures skytap'
+maintainer       'Ben Coleman'
+maintainer_email 'bcoleman@skytap.com'
+license          'Apache 2.0'
+description      'Resource integration with Skytap Cloud for environment provisioning'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.1.0'
