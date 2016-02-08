@@ -61,7 +61,16 @@ action :runstate do
   body = http.put("/v2/configurations/#{l_env_id}.json", '{"runstate": "'+runstate+'"}', headers)
 end
 
-
+action :copy do
+  if(env_id.empty?)
+    l_env_id = action_name
+  else
+    l_env_id = env_id
+  end
+  http = Chef::HTTP.new('https://cloud.skytap.com')
+  headers = makeHeaders(node['skytap']['username'], node['skytap']['password'])
+  body = http.post("/v1/configurations.json", '{"configuration_id": "'+l_env_id+'"}', headers)
+end
 
 #
 # Sets up HTTP headers and basic authorization

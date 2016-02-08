@@ -32,7 +32,6 @@ action :create do
   body = http.post('/v1/templates.json', '{"configuration_id":"'+env_id+'", "name": "'+l_template_name+'"}', headers)
 end
 
-
 #
 # Sets up HTTP headers and basic authorization
 #
