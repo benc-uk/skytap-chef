@@ -17,10 +17,6 @@ property :env_name, String, default: ''
 property :env_id, String, default: ''
 property :description, String, default: ''
 
-# We have no current values to load
-load_current_value do
-end
-
 action :create do
   if(env_name.empty?)
     l_env_name = action_name
@@ -75,15 +71,4 @@ action :copy do
   http = Chef::HTTP.new('https://cloud.skytap.com')
   headers = makeHeaders(node['skytap']['username'], node['skytap']['password'])
   body = http.post("/v1/configurations.json", '{"configuration_id": "'+l_env_id+'"}', headers)
-end
-
-#
-# Sets up HTTP headers and basic authorization
-#
-def makeHeaders (user, pass)
-  auth_string = Base64.strict_encode64(user+':'+pass)
-  headers = ({'Authorization' => "Basic "+auth_string,
-              'Content-Type' => 'application/json',
-              'Accept' => 'application/json' })
-  return headers
 end
