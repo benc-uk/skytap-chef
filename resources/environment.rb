@@ -68,7 +68,11 @@ action :copy do
   else
     l_env_id = env_id
   end
+  name_part = ''
+  if(!env_name.empty?)
+    name_part = ', "name": "'+env_name+'"'
+  end
   http = Chef::HTTP.new('https://cloud.skytap.com')
   headers = makeHeaders(node['skytap']['username'], node['skytap']['password'])
-  body = http.post("/v1/configurations.json", '{"configuration_id": "'+l_env_id+'"}', headers)
+  body = http.post("/v1/configurations.json", '{"configuration_id": "'+l_env_id+'" '+name_part+'}', headers)
 end

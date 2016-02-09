@@ -2,8 +2,8 @@
 Chef integration for Skytap
 
 Currently supports:
- - Create new environment from template
+ - Create new environments from templates
  - Change environment runstate, e.g. stop, start, suspend
  - Copy environments
- - Create a template from environment snapshot
- - Create projects; and assign envs, templates & assets to them
+ - Create a template from environment (snapshot)
+ - Create projects; and assign environments, templates & assets to them
