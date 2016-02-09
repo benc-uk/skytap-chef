@@ -7,8 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-require 'json'
-
 resource_name :skytap_environment
 
 property :template_id, String, default: ''
@@ -17,6 +15,7 @@ property :start, [TrueClass, FalseClass], default: false
 property :runstate, String, default: 'running'
 property :env_name, String, default: ''
 property :env_id, String, default: ''
+property :description, String, default: ''
 
 # We have no current values to load
 load_current_value do
@@ -31,11 +30,17 @@ action :create do
 
   http = Chef::HTTP.new('https://cloud.skytap.com')
   headers = makeHeaders(node['skytap']['username'], node['skytap']['password'])
-  body = http.post('/v1/configurations.json', '{"template_id":"'+template_id+'", "name": "'+l_env_name+'"}', headers)
+  body = http.post('/v1/configurations.json',
+           '{"template_id":"'+template_id+'", "name": "'+l_env_name+'"}',
+           headers)
+
+  body_json = JSON.parse(body)
+  new_env_id = body_json['id']
+  # Update description, weird that he API doesn't allow this to be set at create time
+  desc = URI::encode(description)
+  body = http.put("/v2/configurations/#{new_env_id}?description=#{desc}", '', headers)
 
   if(start)
-    body_json = JSON.parse(body)
-    new_env_id = body_json['id']
     runstate = body_json['runstate']
     try_count = 6
     # Loop until env is ready, e.g. goes from busy -> stopped
